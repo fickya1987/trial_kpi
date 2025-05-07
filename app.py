@@ -73,8 +73,8 @@ if df_kpi.shape[0] > 1:
     st.subheader("💬 Penilaian 360 AKHLAK (Simulasi)")
     for _, row in df_kpi.iterrows():
         nilai_atasan = st.slider(f"Nilai AKHLAK oleh Atasan untuk {row['POSISI PEKERJA']}", 1, 6, 4)
-        nilai_rekan = st.slider(f"Nilai oleh Rekan Kerja", 1, 6, 4, key=f"rekan_{row['ID KPI']}")
-        nilai_bawahan = st.slider(f"Nilai oleh Bawahan", 1, 6, 4, key=f"bawah_{row['ID KPI']}")
+        nilai_rekan = st.slider(f"Nilai oleh Rekan Kerja", 1, 6, 4, key=f"rekan_{_}")
+        nilai_bawahan = st.slider(f"Nilai oleh Bawahan", 1, 6, 4, key=f"bawah_{_}")
         skor_akhir = round((nilai_atasan*0.45 + nilai_rekan*0.25 + nilai_bawahan*0.30) * (20/6), 2)
         st.markdown(f"**Skor AKHLAK**: {skor_akhir} dari maksimum 20")
 else:
