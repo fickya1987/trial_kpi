@@ -56,14 +56,14 @@ if df_kpi.shape[0] > 1:
     # Plot Prediksi
     st.subheader("📈 Prediksi Realisasi vs Target")
     fig, ax = plt.subplots()
-    ax.scatter(X, y, label="Aktual")
-    ax.plot(X, df_kpi["PREDIKSI"], color='red', label="Prediksi")
+    ax.scatter(df_kpi["TARGET TW TERKAIT"], df_kpi["REALISASI TW TERKAIT"], label="Aktual")
+    ax.plot(df_kpi["TARGET TW TERKAIT"], df_kpi["PREDIKSI"], color='red', label="Prediksi")
     ax.set_xlabel("Target")
     ax.set_ylabel("Realisasi")
     ax.legend()
     st.pyplot(fig)
-else:
-    st.warning("Data tidak cukup untuk prediksi. Silakan pilih KPI lain.")
+
+    # Rekomendasi Sederhana
     st.subheader("🤖 Rekomendasi Performa")
     for idx, row in df_kpi.iterrows():
         rekom = "✅ Sudah baik" if row["CAPAIAN %"] >= 100 else "⚠️ Perlu coaching & review strategi"
@@ -77,7 +77,8 @@ else:
         nilai_bawahan = st.slider(f"Nilai oleh Bawahan", 1, 6, 4, key=f"bawah_{idx}")
         skor_akhir = round((nilai_atasan*0.45 + nilai_rekan*0.25 + nilai_bawahan*0.30) * (20/6), 2)
         st.markdown(f"**Skor AKHLAK**: {skor_akhir} dari maksimum 20")
-# (Bagian ini sudah ditangani di atas, tidak perlu else kedua)
+else:
+    st.warning("Data tidak cukup untuk prediksi. Silakan pilih KPI lain.")
 
 # Footer
 st.markdown("""
