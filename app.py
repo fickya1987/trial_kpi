@@ -43,7 +43,7 @@ st.subheader(f"📌 Data untuk KPI: {selected_kpi}")
 st.dataframe(df_kpi)
 
 # Hitung Skor dan Prediksi jika cukup data
-if df_kpi.shape[0] > 1:
+if df_kpi.shape[0] >= 2:
     X = df_kpi[["TARGET TW TERKAIT"]]
     y = df_kpi["REALISASI TW TERKAIT"]
 
@@ -56,12 +56,14 @@ if df_kpi.shape[0] > 1:
     # Plot Prediksi
     st.subheader("📈 Prediksi Realisasi vs Target")
     fig, ax = plt.subplots()
-    ax.scatter(df_kpi["TARGET TW TERKAIT"], df_kpi["REALISASI TW TERKAIT"], label="Aktual")
-    ax.plot(df_kpi["TARGET TW TERKAIT"], df_kpi["PREDIKSI"], color='red', label="Prediksi")
+    ax.scatter(X, y, label="Aktual")
+    ax.plot(X, df_kpi["PREDIKSI"], color='red', label="Prediksi")
     ax.set_xlabel("Target")
     ax.set_ylabel("Realisasi")
     ax.legend()
     st.pyplot(fig)
+else:
+    st.warning("⚠️ Data tidak cukup untuk membuat garis prediksi. Minimal 2 data diperlukan.")
 
     # Rekomendasi Sederhana
     st.subheader("🤖 Rekomendasi Performa")
@@ -85,6 +87,7 @@ st.markdown("""
 ---
 Prototype AI Insight Pelindo 2025 | Dibangun dengan Streamlit, Linear Regression & Simulasi 360 Behavior
 """)
+
 
 
 
