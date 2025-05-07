@@ -65,16 +65,16 @@ if df_kpi.shape[0] > 1:
 
     # Rekomendasi Sederhana
     st.subheader("🤖 Rekomendasi Performa")
-    for _, row in df_kpi.iterrows():
+    for idx, row in df_kpi.iterrows():
         rekom = "✅ Sudah baik" if row["CAPAIAN %"] >= 100 else "⚠️ Perlu coaching & review strategi"
         st.markdown(f"**{row['NAMA KPI']}**: {rekom} (Capaian: {row['CAPAIAN %']:.1f}%)")
 
     # Penilaian 360 AKHLAK (simulasi sederhana)
     st.subheader("💬 Penilaian 360 AKHLAK (Simulasi)")
     for _, row in df_kpi.iterrows():
-        nilai_atasan = st.slider(f"Nilai AKHLAK oleh Atasan untuk {row['POSISI PEKERJA']}", 1, 6, 4)
-        nilai_rekan = st.slider(f"Nilai oleh Rekan Kerja", 1, 6, 4, key=f"rekan_{_}")
-        nilai_bawahan = st.slider(f"Nilai oleh Bawahan", 1, 6, 4, key=f"bawah_{_}")
+        nilai_atasan = st.slider(f"Nilai AKHLAK oleh Atasan untuk {row['POSISI PEKERJA']}", 1, 6, 4, key=f"atasan_{idx}")
+        nilai_rekan = st.slider(f"Nilai oleh Rekan Kerja", 1, 6, 4, key=f"rekan_{idx}")
+        nilai_bawahan = st.slider(f"Nilai oleh Bawahan", 1, 6, 4, key=f"bawah_{idx}")
         skor_akhir = round((nilai_atasan*0.45 + nilai_rekan*0.25 + nilai_bawahan*0.30) * (20/6), 2)
         st.markdown(f"**Skor AKHLAK**: {skor_akhir} dari maksimum 20")
 else:
@@ -85,5 +85,6 @@ st.markdown("""
 ---
 Prototype AI Insight Pelindo 2025 | Dibangun dengan Streamlit, Linear Regression & Simulasi 360 Behavior
 """)
+
 
 
