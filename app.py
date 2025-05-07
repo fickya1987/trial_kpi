@@ -18,6 +18,10 @@ uploaded_file = st.sidebar.file_uploader("Upload Data KPI (CSV)", type=["csv"])
 # Load data
 df = load_data(uploaded_file)
 
+# Konversi kolom numerik untuk menghindari TypeError
+numeric_cols = ["TARGET TW TERKAIT", "REALISASI TW TERKAIT", "BOBOT"]
+df[numeric_cols] = df[numeric_cols].apply(pd.to_numeric, errors='coerce')
+
 # Title and Description
 st.title("📊 Pelindo KPI Dashboard & AI Insight")
 st.markdown("""
@@ -81,4 +85,5 @@ st.markdown("""
 ---
 Prototype AI Insight Pelindo 2025 | Dibangun dengan Streamlit, Linear Regression & Simulasi 360 Behavior
 """)
+
 
