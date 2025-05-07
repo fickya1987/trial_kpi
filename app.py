@@ -43,7 +43,7 @@ st.subheader(f"📌 Data untuk KPI: {selected_kpi}")
 st.dataframe(df_kpi)
 
 # Hitung Skor dan Prediksi jika cukup data
-if df_kpi.shape[0] >= 2:
+if df_kpi.shape[0] > 1:
     X = df_kpi[["TARGET TW TERKAIT"]]
     y = df_kpi["REALISASI TW TERKAIT"]
 
@@ -63,9 +63,7 @@ if df_kpi.shape[0] >= 2:
     ax.legend()
     st.pyplot(fig)
 else:
-    st.warning("⚠️ Data tidak cukup untuk membuat garis prediksi. Minimal 2 data diperlukan.")
-
-# Rekomendasi Sederhana
+    st.warning("Data tidak cukup untuk prediksi. Silakan pilih KPI lain.")
     st.subheader("🤖 Rekomendasi Performa")
     for idx, row in df_kpi.iterrows():
         rekom = "✅ Sudah baik" if row["CAPAIAN %"] >= 100 else "⚠️ Perlu coaching & review strategi"
