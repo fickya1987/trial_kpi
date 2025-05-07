@@ -71,7 +71,7 @@ if df_kpi.shape[0] > 1:
 
     # Penilaian 360 AKHLAK (simulasi sederhana)
     st.subheader("💬 Penilaian 360 AKHLAK (Simulasi)")
-    for _, row in df_kpi.iterrows():
+    for idx, row in df_kpi.reset_index().iterrows():
         nilai_atasan = st.slider(f"Nilai AKHLAK oleh Atasan untuk {row['POSISI PEKERJA']}", 1, 6, 4, key=f"atasan_{idx}")
         nilai_rekan = st.slider(f"Nilai oleh Rekan Kerja", 1, 6, 4, key=f"rekan_{idx}")
         nilai_bawahan = st.slider(f"Nilai oleh Bawahan", 1, 6, 4, key=f"bawah_{idx}")
